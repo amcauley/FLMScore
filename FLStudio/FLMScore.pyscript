@@ -1,0 +1,13 @@
+# Needs 21.3 Beta 2 or later (https://forum.image-line.com/viewtopic.php?p=1935095)
+import flpianoroll as flp
+
+import os
+
+COMM_FILE = 'FLMScoreComm.txt'
+
+flp.Utils.log('\nDEBUG: Running Script')
+
+if os.path.exists(COMM_FILE):
+    with open(COMM_FILE, 'r') as fp:
+        lines = fp.readlines()
+        flp.Utils.log(lines[0] if lines else '<EMPTY FILE>')
