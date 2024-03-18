@@ -14,8 +14,22 @@ MuseScore {
     }  
 
     onRun:{
-        var cursor = curScore.startCmd()
-        var rc = outfile.write("Hello World!\n");
+        var cursor = curScore.newCursor();
+        cursor.rewind(0);
+
+        var noteStr = "";
+        while (cursor.segment && (cursor.tick <= curScore.lastSegment.tick)) {
+              if (cursor.element && cursor.element.type === Element.CHORD) {
+                    var notes = cursor.element.notes;
+                    for (var k = 0; k < notes.length; k++) {
+                          var note = notes[k];
+                          noteStr += note.pitch + "\n";
+                    }
+              }
+              cursor.next();
+        }
+
+        var rc = outfile.write(noteStr);
             if (rc){ 
                   console.log("Log file has been  written to "+ outfile.source);
             } else {

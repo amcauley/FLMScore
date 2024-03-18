@@ -1,4 +1,4 @@
-# Needs 21.3 Beta 2 or later (https://forum.image-line.com/viewtopic.php?p=1935095)
+# Needs 21.3 Beta 1 or later (https://forum.image-line.com/viewtopic.php?p=1933611)
 import flpianoroll as flp
 
 import os
