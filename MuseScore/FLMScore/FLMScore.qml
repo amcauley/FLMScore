@@ -19,12 +19,14 @@ MuseScore {
 
         var noteStr = "";
         while (cursor.segment && (cursor.tick <= curScore.lastSegment.tick)) {
-              if (cursor.element && cursor.element.type === Element.CHORD) {
-                    var notes = cursor.element.notes;
-                    for (var k = 0; k < notes.length; k++) {
+              if (cursor.element) {
+                  if (cursor.element.type === Element.CHORD) {
+                      var notes = cursor.element.notes;
+                      for (var k = 0; k < notes.length; k++) {
                           var note = notes[k];
-                          noteStr += note.pitch + "\n";
-                    }
+                          noteStr += note.pitch + "," + cursor.element.duration.str + "," + cursor.measure.firstSegment.tick + "," + cursor.tick + "\n";
+                      }
+                  }
               }
               cursor.next();
         }
