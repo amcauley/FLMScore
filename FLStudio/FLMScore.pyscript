@@ -3,11 +3,43 @@ import flpianoroll as flp
 
 import os
 
+# Getting a file read error when selecting locations outside of the scripting directory.
+# MuseScore seems to be able to write to this directory, though, so it should be ok to use.
 COMM_FILE = 'FLMScoreComm.txt'
 
-flp.Utils.log('\nDEBUG: Running Script')
+# Number of MuseScore ticks per quarter note.
+# The FL Studio equivalent of this is flp.score.PPQ (Parts Per Quarter) and is a project setting.
+MUSESCORE_TICKS_PER_QUARTER = 480
+
+flp.Utils.log('\nDEBUG: Running FLMScore')
+
+def MuseScoreDurationToQuarterNotes(duration):
+    if duration == '1/2':
+        return 2
+    elif duration == '1/4':
+        return 1
+    # DEFAULT, TODO: HANDLE ALL EXPECTED CASES ABOVE
+    return 8
 
 if os.path.exists(COMM_FILE):
+    flp.Utils.log(f'Opening comm file: {COMM_FILE}')
+
     with open(COMM_FILE, 'r') as fp:
         lines = fp.readlines()
-        flp.Utils.log(lines[0] if lines else '<EMPTY FILE>')
+
+        flp.score.clearNotes(False)
+
+        for line in lines:
+            startTick, pitch, duration = line.strip().split(',')
+            startTick = int(startTick)
+            pitch = int(pitch)
+            flp.Utils.log(f'\tNote {pitch=} {duration=} {startTick=}')
+
+            note = flp.Note()
+            note.number = pitch
+            note.time = int(startTick / MUSESCORE_TICKS_PER_QUARTER * flp.score.PPQ)
+            note.length = int(MuseScoreDurationToQuarterNotes(duration) * flp.score.PPQ)
+            #note.color = int(color)
+            #note.velocity = velocity
+
+            flp.score.addNote(note)

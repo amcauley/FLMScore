@@ -9,7 +9,7 @@ MuseScore {
 
     FileIO {
             id: outfile
-            source: "Z:/Documents/FLMScore/Debug/Logs/MuseScoreScript.log"
+            source: "Z:/Programs/FL Studio BETA/System/Config/Piano roll scripts/FLMScoreComm.txt"
             onError: console.log(msg)
     }  
 
@@ -24,7 +24,7 @@ MuseScore {
                       var notes = cursor.element.notes;
                       for (var k = 0; k < notes.length; k++) {
                           var note = notes[k];
-                          noteStr += note.pitch + "," + cursor.element.duration.str + "," + cursor.measure.firstSegment.tick + "," + cursor.tick + "\n";
+                          noteStr += cursor.tick + "," + note.pitch + "," + cursor.element.duration.str  + "\n";
                       }
                   }
               }
