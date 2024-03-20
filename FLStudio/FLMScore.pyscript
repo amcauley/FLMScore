@@ -14,12 +14,13 @@ MUSESCORE_TICKS_PER_QUARTER = 480
 flp.Utils.log('\nDEBUG: Running FLMScore')
 
 def MuseScoreDurationToQuarterNotes(duration):
-    if duration == '1/2':
-        return 2
-    elif duration == '1/4':
-        return 1
-    # DEFAULT, TODO: HANDLE ALL EXPECTED CASES ABOVE
-    return 8
+    # Try to parse the duration, which is (as far as I've seen) a fraction, ex. '1/4', '1/2', etc.
+    if '/' in duration:
+        num, den = duration.split('/')
+        num = int(num)
+        den = int(den)
+        return int(num / den * 4 / den)
+    return 0
 
 if os.path.exists(COMM_FILE):
     flp.Utils.log(f'Opening comm file: {COMM_FILE}')
@@ -30,7 +31,7 @@ if os.path.exists(COMM_FILE):
         flp.score.clearNotes(False)
 
         for line in lines:
-            startTick, pitch, duration = line.strip().split(',')
+            _staff, _voice, startTick, pitch, duration = line.strip().split(',')
             startTick = int(startTick)
             pitch = int(pitch)
             flp.Utils.log(f'\tNote {pitch=} {duration=} {startTick=}')
