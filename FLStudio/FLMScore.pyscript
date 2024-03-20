@@ -15,12 +15,15 @@ flp.Utils.log('\nDEBUG: Running FLMScore')
 
 def MuseScoreDurationToQuarterNotes(duration):
     # Try to parse the duration, which is (as far as I've seen) a fraction, ex. '1/4', '1/2', etc.
+    dur = 0
     if '/' in duration:
         num, den = duration.split('/')
         num = int(num)
         den = int(den)
-        return int(num / den * 4 / den)
-    return 0
+        scale = 4 / den
+        dur = num * scale
+    flp.Utils.log(f'Parsed MS duration {duration} to {dur}')
+    return dur
 
 if os.path.exists(COMM_FILE):
     flp.Utils.log(f'Opening comm file: {COMM_FILE}')
