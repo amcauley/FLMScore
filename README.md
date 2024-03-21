@@ -4,6 +4,8 @@ Plugins to edit FL Studio piano rolls using MuseScore
 # Intro
 FLMScore is a set of plugins that helps link MuseScore to FL Studio. Specifically, it provides a MuseScore 4.x plugin that exports sheet music notes that a corresponding FL Studio piano roll plugin reads. The goal is to use Muse Score's sheet music GUI to create melodies, chords, etc. that you can instantly import into FL Studio (which lacks a sheet music editing GUI).
 
+Demo Video: https://youtu.be/cl6oHFQdcxY
+
 # Installation
 1. Copy the FL Studio script from this project (`FLStudio/FLMScore.pyscript`) into your local FL Studio `Piano roll scripts` directory (create it if it doesn't already exist), ex. `Z:\YourLocalProgramsPath\FL Studio BETA\System\Config\Piano roll scripts\FLMScore.pyscript`.
 2. Copy the MuseScore plugin from this project (`MuseScore/FLMScore/FLMScore.qml`) into your local MuseScore installation in a `FLMScore` sub-directory, ex. the final location might look like: `Z:\YourLocalDocumentsPath\MuseScore4\Plugins\FLMScore\FLMScore.qml`.
